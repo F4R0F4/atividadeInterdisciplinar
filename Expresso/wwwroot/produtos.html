@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio | Expresso Sushi</title>
+    <meta name="description" content="Expresso Sushi - comida japonesa feita na hora e entregue em até 40 minutos.">
+    <link rel="icon" href="img/icone.png" type="image/png">
+    <link rel="preload" href="fonts/BarlowCondensed-800i.woff2" as="font" type="font/woff2" crossorigin>
+    <script>
+        document.documentElement.dataset.tema = localStorage.getItem("expresso_tema") ||
+            (matchMedia("(prefers-color-scheme: dark)").matches ? "escuro" : "claro");
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/componentes.css">
+    <link rel="stylesheet" href="css/paginas.css">
+</head>
+<body>
+    <header class="topo">
+        <div class="container topo-conteudo">
+            <a href="index.html" class="logo" aria-label="Expresso Sushi - página inicial">
+                <img src="img/logo.png" alt="" width="72" height="42">
+                <span class="logo-texto">Expresso<span>sushi</span></span>
+            </a>
+
+            <form class="busca-topo" action="produtos.html" method="get" role="search">
+                <input type="search" name="busca" placeholder="Buscar no cardápio" maxlength="40" aria-label="Buscar no cardápio">
+                <button type="submit" aria-label="Buscar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
+                </button>
+            </form>
+
+            <button class="tema-botao" id="temaBotao" type="button" aria-label="Alternar modo claro/escuro"></button>
+            <button class="menu-botao" id="menuBotao" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            </button>
+
+            <nav class="menu" id="menu" aria-label="Menu principal">
+                <a href="index.html">Início</a>
+                <a href="produtos.html">Cardápio</a>
+                <a href="pedidos.html">Meus pedidos</a>
+                <a href="carrinho.html">Carrinho <span class="contador-carrinho" data-contador>0</span></a>
+
+                <div class="area-visitante" data-visitante>
+                    <button class="botao botao-contorno" type="button" data-abrir-login>Entrar</button>
+                    <a href="cadastro.html" class="botao botao-primario">Cadastrar</a>
+                </div>
+                <div class="area-usuario" data-logado hidden>
+                    <a href="perfil.html" class="link-perfil" title="Meu perfil">Olá, <span data-nome-usuario></span></a>
+                    <button class="botao botao-contorno botao-pequeno" type="button" data-sair>Sair</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="cabecalho-pagina">
+            <h1>Nosso cardápio</h1>
+            <p>Tudo preparado na hora. Use a busca ou filtre por categoria.</p>
+        </div>
+        <div class="barra-filtros">
+            <label class="busca-pagina">
+                <input type="search" id="campoBusca" placeholder="Buscar por nome, ingrediente ou categoria..." maxlength="40" aria-label="Buscar produtos">
+            </label>
+            <select id="ordenacao" aria-label="Ordenar produtos">
+                <option value="padrao">Ordenar: categoria</option>
+                <option value="menor">Menor preço</option>
+                <option value="maior">Maior preço</option>
+                <option value="nome">Nome (A-Z)</option>
+            </select>
+        </div>
+
+        <div class="chips" id="chipsCategorias" role="tablist" aria-label="Categorias">
+            <button class="chip ativo" type="button" data-categoria="0">Todos</button>
+        </div>
+
+        <p class="texto-frete" id="resultadoBusca" aria-live="polite"></p>
+        <div class="grade-produtos" id="listaProdutos" style="margin-top:12px">
+            <p class="carregando">Carregando cardápio...</p>
+        </div>
+    </main>
+    <footer class="rodape">
+        <div class="container rodape-grade">
+            <div>
+                <a href="index.html" class="logo" aria-label="Expresso Sushi - página inicial">
+                <img src="img/logo.png" alt="" width="72" height="42">
+                    <span class="logo-texto">Expresso<span>sushi</span></span>
+                </a>
+                <p>Peixe fresco, arroz no ponto e entrega rápida. Cada pedido sai da cozinha assim que fica pronto.</p>
+            </div>
+            <div>
+                <h3>Navegação</h3>
+                <ul>
+                    <li><a href="produtos.html">Cardápio</a></li>
+                    <li><a href="carrinho.html">Carrinho</a></li>
+                    <li><a href="pedidos.html">Meus pedidos</a></li>
+                    <li><a href="perfil.html">Meu perfil</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Horário</h3>
+                <ul>
+                    <li>Terça a quinta, 18h às 23h</li>
+                    <li>Sexta e sábado, 18h à meia-noite</li>
+                    <li>Domingo, 12h às 22h</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Contato</h3>
+                <ul>
+                    <li>(11) 4002-8922</li>
+                    <li><a href="mailto:contato@expressosushi.com.br">contato@expressosushi.com.br</a></li>
+                    <li>Rua da Liberdade, 100, São Paulo/SP</li>
+                </ul>
+            </div>
+        </div>
+        <div class="rodape-base">
+            <div class="container">
+                <span>© 2026 Expresso Sushi</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/mascaras.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/produtos.js"></script>
+</body>
+</html>

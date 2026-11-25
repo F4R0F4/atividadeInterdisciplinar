@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho | Expresso Sushi</title>
+    <meta name="description" content="Expresso Sushi - comida japonesa feita na hora e entregue em até 40 minutos.">
+    <link rel="icon" href="img/icone.png" type="image/png">
+    <link rel="preload" href="fonts/BarlowCondensed-800i.woff2" as="font" type="font/woff2" crossorigin>
+    <script>
+        document.documentElement.dataset.tema = localStorage.getItem("expresso_tema") ||
+            (matchMedia("(prefers-color-scheme: dark)").matches ? "escuro" : "claro");
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/componentes.css">
+    <link rel="stylesheet" href="css/paginas.css">
+</head>
+<body>
+    <header class="topo">
+        <div class="container topo-conteudo">
+            <a href="index.html" class="logo" aria-label="Expresso Sushi - página inicial">
+                <img src="img/logo.png" alt="" width="72" height="42">
+                <span class="logo-texto">Expresso<span>sushi</span></span>
+            </a>
+
+            <form class="busca-topo" action="produtos.html" method="get" role="search">
+                <input type="search" name="busca" placeholder="Buscar no cardápio" maxlength="40" aria-label="Buscar no cardápio">
+                <button type="submit" aria-label="Buscar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
+                </button>
+            </form>
+
+            <button class="tema-botao" id="temaBotao" type="button" aria-label="Alternar modo claro/escuro"></button>
+            <button class="menu-botao" id="menuBotao" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            </button>
+
+            <nav class="menu" id="menu" aria-label="Menu principal">
+                <a href="index.html">Início</a>
+                <a href="produtos.html">Cardápio</a>
+                <a href="pedidos.html">Meus pedidos</a>
+                <a href="carrinho.html">Carrinho <span class="contador-carrinho" data-contador>0</span></a>
+
+                <div class="area-visitante" data-visitante>
+                    <button class="botao botao-contorno" type="button" data-abrir-login>Entrar</button>
+                    <a href="cadastro.html" class="botao botao-primario">Cadastrar</a>
+                </div>
+                <div class="area-usuario" data-logado hidden>
+                    <a href="perfil.html" class="link-perfil" title="Meu perfil">Olá, <span data-nome-usuario></span></a>
+                    <button class="botao botao-contorno botao-pequeno" type="button" data-sair>Sair</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="cabecalho-pagina">
+            <h1>Seu carrinho</h1>
+            <p>Confira os itens, escolha a forma de pagamento e finalize o pedido.</p>
+        </div>
+
+        <div id="carrinhoVazio" class="vazio cartao" hidden>
+            <svg class="vazio-icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 11h10.2L20 7H7"/><circle cx="9.5" cy="19" r="1.4"/><circle cx="17" cy="19" r="1.4"/></svg>
+            <h2>Seu carrinho está vazio</h2>
+            <p>Que tal um combinado hoje?</p>
+            <p style="margin-top:16px"><a href="produtos.html" class="botao botao-primario">Ver cardápio</a></p>
+        </div>
+
+        <div class="layout-carrinho" id="carrinhoCheio" hidden>
+            <div class="formulario">
+                <section class="cartao">
+                    <div class="secao-titulo" style="margin-bottom:4px">
+                        <h2 style="font-size:1.3rem">Itens</h2>
+                        <button class="remover" type="button" id="limparCarrinho">Esvaziar carrinho</button>
+                    </div>
+                    <div id="itensCarrinho"></div>
+                </section>
+
+                <form class="cartao formulario" id="formCheckout" novalidate>
+                    <h2 class="legenda-form">Entrega</h2>
+                    <div class="campo">
+                        <label for="enderecoEntrega">Endereço de entrega <span class="obrigatorio">*</span></label>
+                        <textarea id="enderecoEntrega" name="enderecoEntrega" maxlength="250" rows="2" placeholder="Rua, número, bairro, cidade"></textarea>
+                        <span class="dica"><span class="mensagem-erro"></span><small data-contador-de="enderecoEntrega"></small></span>
+                    </div>
+
+                    <h2 class="legenda-form">Pagamento na entrega</h2>
+                    <div class="opcoes-radio">
+                        <label class="opcao-radio"><input type="radio" name="pagamento" value="Pix" checked> Pix</label>
+                        <label class="opcao-radio"><input type="radio" name="pagamento" value="Cartão de crédito"> Crédito</label>
+                        <label class="opcao-radio"><input type="radio" name="pagamento" value="Cartão de débito"> Débito</label>
+                        <label class="opcao-radio"><input type="radio" name="pagamento" value="Dinheiro"> Dinheiro</label>
+                    </div>
+                    <div class="campo" id="campoTroco" hidden>
+                        <label for="troco">Troco para quanto? (R$)</label>
+                        <input type="text" id="troco" name="troco" data-mascara="dinheiro" maxlength="9" placeholder="0,00">
+                        <span class="mensagem-erro"></span>
+                    </div>
+
+                    <div class="campo">
+                        <label for="observacao">Observações</label>
+                        <textarea id="observacao" name="observacao" maxlength="200" rows="2" placeholder="Ex.: sem cebolinha, mandar hashi extra..."></textarea>
+                        <span class="dica"><span></span><small data-contador-de="observacao"></small></span>
+                    </div>
+                </form>
+            </div>
+
+            <aside class="cartao resumo">
+                <h2 style="font-size:1.3rem">Resumo</h2>
+                <div class="resumo-linha"><span>Subtotal</span><span id="valorSubtotal">R$ 0,00</span></div>
+                <div class="resumo-linha"><span>Taxa de entrega</span><span id="valorTaxa">R$ 0,00</span></div>
+                <div class="barra-frete"><div id="barraFrete"></div></div>
+                <p class="texto-frete" id="textoFrete"></p>
+                <div class="resumo-linha resumo-total"><span>Total</span><span id="valorTotal">R$ 0,00</span></div>
+                <div class="alerta alerta-erro" id="erroCheckout" hidden></div>
+                <button class="botao botao-primario botao-grande botao-bloco" type="submit" form="formCheckout" id="botaoFinalizar">Finalizar pedido</button>
+                <a href="produtos.html" class="botao botao-contorno botao-bloco">Continuar comprando</a>
+            </aside>
+        </div>
+    </main>
+    <footer class="rodape">
+        <div class="container rodape-grade">
+            <div>
+                <a href="index.html" class="logo" aria-label="Expresso Sushi - página inicial">
+                <img src="img/logo.png" alt="" width="72" height="42">
+                    <span class="logo-texto">Expresso<span>sushi</span></span>
+                </a>
+                <p>Peixe fresco, arroz no ponto e entrega rápida. Cada pedido sai da cozinha assim que fica pronto.</p>
+            </div>
+            <div>
+                <h3>Navegação</h3>
+                <ul>
+                    <li><a href="produtos.html">Cardápio</a></li>
+                    <li><a href="carrinho.html">Carrinho</a></li>
+                    <li><a href="pedidos.html">Meus pedidos</a></li>
+                    <li><a href="perfil.html">Meu perfil</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Horário</h3>
+                <ul>
+                    <li>Terça a quinta, 18h às 23h</li>
+                    <li>Sexta e sábado, 18h à meia-noite</li>
+                    <li>Domingo, 12h às 22h</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Contato</h3>
+                <ul>
+                    <li>(11) 4002-8922</li>
+                    <li><a href="mailto:contato@expressosushi.com.br">contato@expressosushi.com.br</a></li>
+                    <li>Rua da Liberdade, 100, São Paulo/SP</li>
+                </ul>
+            </div>
+        </div>
+        <div class="rodape-base">
+            <div class="container">
+                <span>© 2026 Expresso Sushi</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/mascaras.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/carrinho.js"></script>
+</body>
+</html>
