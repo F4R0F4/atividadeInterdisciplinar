@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Início | Expresso Sushi</title>
+    <meta name="description" content="Expresso Sushi - comida japonesa feita na hora e entregue em até 40 minutos.">
+    <link rel="icon" href="img/icone.png" type="image/png">
+    <link rel="preload" href="fonts/BarlowCondensed-800i.woff2" as="font" type="font/woff2" crossorigin>
+    <script>
+        document.documentElement.dataset.tema = localStorage.getItem("expresso_tema") ||
+            (matchMedia("(prefers-color-scheme: dark)").matches ? "escuro" : "claro");
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/componentes.css">
+    <link rel="stylesheet" href="css/paginas.css">
+</head>
+<body>
+    <header class="topo">
+        <div class="container topo-conteudo">
+            <a href="index.html" class="logo" aria-label="Expresso Sushi - página inicial">
+                <img src="img/logo.png" alt="" width="72" height="42">
+                <span class="logo-texto">Expresso<span>sushi</span></span>
+            </a>
+
+            <form class="busca-topo" action="produtos.html" method="get" role="search">
+                <input type="search" name="busca" placeholder="Buscar no cardápio" maxlength="40" aria-label="Buscar no cardápio">
+                <button type="submit" aria-label="Buscar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
+                </button>
+            </form>
+
+            <button class="tema-botao" id="temaBotao" type="button" aria-label="Alternar modo claro/escuro"></button>
+            <button class="menu-botao" id="menuBotao" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            </button>
+
+            <nav class="menu" id="menu" aria-label="Menu principal">
+                <a href="index.html">Início</a>
+                <a href="produtos.html">Cardápio</a>
+                <a href="pedidos.html">Meus pedidos</a>
+                <a href="carrinho.html">Carrinho <span class="contador-carrinho" data-contador>0</span></a>
+
+                <div class="area-visitante" data-visitante>
+                    <button class="botao botao-contorno" type="button" data-abrir-login>Entrar</button>
+                    <a href="cadastro.html" class="botao botao-primario">Cadastrar</a>
+                </div>
+                <div class="area-usuario" data-logado hidden>
+                    <a href="perfil.html" class="link-perfil" title="Meu perfil">Olá, <span data-nome-usuario></span></a>
+                    <button class="botao botao-contorno botao-pequeno" type="button" data-sair>Sair</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-grade">
+                <div class="hero-texto">
+                    <h1>Do balcão à sua porta em 35 minutos.</h1>
+                    <p>
+                        Sushi, temaki e lámen preparados na hora, com peixe fresco todo dia.
+                        Você monta o pedido, acompanha cada etapa e recebe ainda no ponto.
+                    </p>
+
+                    <form class="hero-busca" action="produtos.html" method="get" role="search">
+                        <input type="search" name="busca" placeholder="Ex.: temaki de salmão" maxlength="40" aria-label="Buscar no cardápio">
+                        <button class="botao botao-primario botao-grande" type="submit">Buscar</button>
+                    </form>
+                    <div class="bilhete" aria-label="Tempo médio de entrega: 35 minutos">
+                        <div class="bilhete-rota">
+                            <div class="bilhete-estacoes">
+                                <div class="bilhete-estacao"><small>Partida</small><strong>Cozinha</strong></div>
+                                <div class="bilhete-trilho" aria-hidden="true"></div>
+                                <div class="bilhete-estacao"><small>Chegada</small><strong>Sua porta</strong></div>
+                            </div>
+                            <div class="bilhete-info">
+                                <span>Frete grátis acima de <b>R$ 120</b></span>
+                                <span>Taxa normal <b>R$ 7,90</b></span>
+                            </div>
+                        </div>
+                        <div class="bilhete-tempo">
+                            <strong>35</strong>
+                            <small>minutos em média</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-foto">
+                    <img src="img/hero.jpg" alt="Combinado de sushi com salmão, atum e uramakis" width="700" height="735">
+                </div>
+            </div>
+        </section>
+        <section class="secao">
+            <div class="container">
+                <div class="secao-titulo">
+                    <h2>Escolha por categoria</h2>
+                    <a href="produtos.html">Ver cardápio completo</a>
+                </div>
+                <div class="grade-categorias">
+                    <a class="categoria-cartao" href="produtos.html?categoria=1"><img src="img/produtos/combinado-expresso.jpg" alt="" loading="lazy">Combinados</a>
+                    <a class="categoria-cartao" href="produtos.html?categoria=2"><img src="img/produtos/niguiri-salmao.jpg" alt="" loading="lazy">Sushis</a>
+                    <a class="categoria-cartao" href="produtos.html?categoria=3"><img src="img/produtos/temaki-salmao.jpg" alt="" loading="lazy">Temakis</a>
+                    <a class="categoria-cartao" href="produtos.html?categoria=4"><img src="img/produtos/hot-philadelphia.jpg" alt="" loading="lazy">Hot rolls</a>
+                    <a class="categoria-cartao" href="produtos.html?categoria=5"><img src="img/produtos/lamen-tonkotsu.jpg" alt="" loading="lazy">Pratos quentes</a>
+                    <a class="categoria-cartao" href="produtos.html?categoria=6"><img src="img/produtos/cha-verde.jpg" alt="" loading="lazy">Bebidas</a>
+                    <a class="categoria-cartao" href="produtos.html?categoria=7"><img src="img/produtos/mochi-morango.jpg" alt="" loading="lazy">Sobremesas</a>
+                </div>
+            </div>
+        </section>
+        <section class="secao">
+            <div class="container">
+                <div class="secao-titulo">
+                    <h2>Os mais pedidos</h2>
+                    <a href="produtos.html">Ver todos</a>
+                </div>
+                <div class="grade-produtos" id="destaques">
+                    <p class="carregando">Carregando os mais pedidos...</p>
+                </div>
+            </div>
+        </section>
+        <section class="secao">
+            <div class="container">
+                <div class="secao-titulo"><h2>Como seu pedido viaja</h2></div>
+                <ol class="rota">
+                    <li><h3>Você pede</h3><p>Escolha os pratos e pague na entrega, com Pix, cartão ou dinheiro.</p></li>
+                    <li><h3>A cozinha prepara</h3><p>O sushiman começa assim que o pedido chega.</p></li>
+                    <li><h3>Sai para entrega</h3><p>Embalado com gelo para o peixe chegar fresco.</p></li>
+                    <li><h3>Chega na sua porta</h3><p>Em média 35 minutos depois do pedido.</p></li>
+                </ol>
+            </div>
+        </section>
+        <section class="secao" data-visitante>
+            <div class="container">
+                <div class="faixa-cta">
+                    <img src="img/entrega.jpg" alt="Sushiman preparando um pedido" loading="lazy">
+                    <div class="faixa-cta-texto">
+                        <h2>Primeira vez aqui?</h2>
+                        <p>Crie sua conta, salve seu endereço e faça o primeiro pedido em poucos minutos.</p>
+                        <a href="cadastro.html" class="botao botao-primario botao-grande">Criar minha conta</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="rodape">
+        <div class="container rodape-grade">
+            <div>
+                <a href="index.html" class="logo" aria-label="Expresso Sushi - página inicial">
+                <img src="img/logo.png" alt="" width="72" height="42">
+                    <span class="logo-texto">Expresso<span>sushi</span></span>
+                </a>
+                <p>Peixe fresco, arroz no ponto e entrega rápida. Cada pedido sai da cozinha assim que fica pronto.</p>
+            </div>
+            <div>
+                <h3>Navegação</h3>
+                <ul>
+                    <li><a href="produtos.html">Cardápio</a></li>
+                    <li><a href="carrinho.html">Carrinho</a></li>
+                    <li><a href="pedidos.html">Meus pedidos</a></li>
+                    <li><a href="perfil.html">Meu perfil</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Horário</h3>
+                <ul>
+                    <li>Terça a quinta, 18h às 23h</li>
+                    <li>Sexta e sábado, 18h à meia-noite</li>
+                    <li>Domingo, 12h às 22h</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Contato</h3>
+                <ul>
+                    <li>(11) 4002-8922</li>
+                    <li><a href="mailto:contato@expressosushi.com.br">contato@expressosushi.com.br</a></li>
+                    <li>Rua da Liberdade, 100, São Paulo/SP</li>
+                </ul>
+            </div>
+        </div>
+        <div class="rodape-base">
+            <div class="container">
+                <span>© 2026 Expresso Sushi</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/mascaras.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>

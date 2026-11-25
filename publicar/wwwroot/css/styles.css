@@ -1,0 +1,101 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+    max-width: 1100px;
+    padding: 0 10px;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+svg {
+    width: 18px;
+    height: 18px;
+}
+
+.logo img {
+    height: 40px;
+    width: auto;
+}
+
+.topo, .rodape {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+.rodape {
+    border-top: 1px solid #ccc;
+    border-bottom: none;
+    margin-top: 40px;
+}
+
+.menu a {
+    margin-right: 10px;
+}
+
+.grade-produtos, .grade-categorias {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.produto, .categoria-cartao {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 220px;
+}
+
+.cartao {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.item-foto {
+    width: 80px;
+}
+
+.modal-fundo {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    background: #fff;
+    padding: 20px;
+    width: 320px;
+    position: relative;
+}
+
+.modal-fechar {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.toasts {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+.toast {
+    background: #333;
+    color: #fff;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+.mensagem-erro {
+    color: red;
+}
